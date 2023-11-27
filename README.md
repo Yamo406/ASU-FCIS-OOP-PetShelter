@@ -4,3 +4,4 @@ This project is an application that implements the concepts of Object Oriented P
 
 Devs:
 - @Yamo406
+-@Randern212
