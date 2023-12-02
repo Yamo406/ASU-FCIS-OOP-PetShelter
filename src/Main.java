@@ -1,6 +1,7 @@
 import User.*;
 import Room.*;
-import Pet.*;
+import Pet.Pet;
+//added the Pet Class
 import java.util.*;
 enum Pet_type
 {
