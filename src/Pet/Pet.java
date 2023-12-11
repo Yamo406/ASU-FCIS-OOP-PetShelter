@@ -1,5 +1,4 @@
-
-public class Pet
+public class Pet implements Comparable
 {
     private String name;
     private int ID;
@@ -79,5 +78,19 @@ public class Pet
     public void setTreatmentStatus(Treatment_Status treatmentStatus) {
         TreatmentStatus = treatmentStatus;
     }
-}
-
+    @Override
+    public int compareTo(Object o) {
+        Pet target= (Pet) o;
+        if(this.getID()==target.getID())
+        {
+            return 0;
+        }
+        else if (this.getID()>target.getID())
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }}
