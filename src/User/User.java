@@ -27,7 +27,7 @@ public abstract class User implements Comparable {
     public int compareTo(Object o)
     {
         User item=(User) o;
-        if (this.name== item.name)
+        if (this.name.equals(((User) o).name))
         {
             return 0;
         }
