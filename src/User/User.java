@@ -1,5 +1,6 @@
-package User;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public abstract class User implements Comparable {
     protected String name;
     protected String password;
@@ -8,33 +9,60 @@ public abstract class User implements Comparable {
         this.name = name;
         this.password = password;
     }
-    public void Register(User user)
+    public abstract void Register (User user) throws RegisterException;
+
+    public boolean Login() throws LoginException
     {
-        for(User item:registeredUser)
-        {
-            if (user.compareTo(item)==0)
+            Scanner login = new Scanner(System.in);
+            System.out.println("Please Enter Your Username ");
+            String Name = login.next();
+            System.out.println("Please Enter Your Password");
+            String Password = login.next();
+            for(User item: User.registeredUser)
             {
-                System.out.println("Invalid username or password");
+                if((Name.compareTo(item.getName())==0)&&Password.compareTo(item.getPassword())==0)
+                {
+                    return true;
+                }
+                else
+                {
+                    continue;
+                }
             }
-            else
-            {
-                registeredUser.add(user);
-            }
-        }
+            return false;
     }
-    public abstract void Login();
 
     @Override
     public int compareTo(Object o)
     {
         User item=(User) o;
-        if (this.name.equals(((User) o).name))
+        if (this.name.equals(item.name))
         {
             return 0;
         }
-        else
+        else if ((this.name.compareTo(item.name))==1)
         {
             return 1;
         }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
