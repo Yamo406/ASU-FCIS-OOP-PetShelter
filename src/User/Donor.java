@@ -1,45 +1,52 @@
-package User;
+import javax.sound.midi.Soundbank;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
-
+enum donation_Type { MONEY, FOOD, MEDICINE}
+enum delivery_Type {ONLINE, ONSITE }
 public class Donor extends User {
-    private int donor_ID ;
+    private int donor_ID;
     private int card_Number;
+    private donation_Type donation;
+    private delivery_Type delivery;
+    private static int no_donors=0;
+    protected static ArrayList<Donor> registeredDonor= new ArrayList<>();
 
-    public Donor(String name, String password,int donor_ID,int card_Number)
+
+    public Donor(String name, String password, int card_Number)
     {
         super(name, password);
-        this.donor_ID=donor_ID;
-        this.card_Number=card_Number;
+        this.donor_ID=no_donors+100;
+        this.card_Number= card_Number;
+        no_donors++;
     }
 
     @Override
-    public void Login() {
-        Scanner login = new Scanner(System.in);
-        System.out.println("Please Enter Your Username ");
-        name = login.next();
-        System.out.println("Please Enter Your Password");
-        password = login.next();
+    public void Register(User user) throws RegisterException
+    {
+            for(User item:registeredUser)
+            {
+                if (user.compareTo(item)==0)
+                {
+                    throw new RegisterException();
+                }
+                else
+                {
+                    registeredUser.add(user);
+                    System.out.println("Please enter your card number");
+                    Scanner inf= new Scanner(System.in);
+                    int CardInfo= inf.nextInt();
+                    registeredDonor.add(new Donor(user.getName(), user.getPassword(), CardInfo));
+                }
+            }
     }
-
-    enum donation_Type { MONEY, FOOD, MEDICIN}
-    enum delivery_Type {ONLINE, ONSITE }
-    private donation_Type donation;
-
-    private delivery_Type delivery;
-
-
-    public void setDonor_ID(char donor_ID) {
-        this.donor_ID = donor_ID;
-    }
-
     public int getDonor_ID() {
         return donor_ID;
     }
 
-    public void setCard_Number(char card_Number) {
+    public void setCard_Number(int card_Number) {
         this.card_Number = card_Number;
     }
 
@@ -117,7 +124,7 @@ public class Donor extends User {
                 }
                 break;
             case FOOD:
-            case MEDICIN:
+            case MEDICINE:
                 OnsiteList();
                 break;
 
@@ -125,20 +132,20 @@ public class Donor extends User {
         }
 
     }
-    public void AskForAdobtion(){
-
-        Admin admin = new Admin();
-        admin. DisplayReadyForAdoptionPets();
-        System.out.println("Please Choose A Pet To Adopt by choosing its number from 1 to " + Vet.readyPets);
-        Scanner adoptedPet = new Scanner(System.in);
-
-
-
-
-
-
-
-
-
-    }
+//    public void AskForAdoption(){
+//
+//        Admin admin = new Admin();
+//        admin. DisplayReadyForAdoptionPets();
+//        System.out.println("Please Choose A Pet To Adopt by choosing its number from 1 to " + Vet.readyPets);
+//        Scanner adoptedPet = new Scanner(System.in);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//    }
 }
