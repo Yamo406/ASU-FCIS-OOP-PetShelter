@@ -6,18 +6,20 @@ public class Pet implements Comparable
     private int ID;
     private Pet_type type;
     private int age;
+    private static int no_pets=0;
     private Adoption_status AdoptionStatus;
     private Ready_for_adoption_status ReadyForAdoptionStatus;
     private Treatment_Status TreatmentStatus;
     public static ArrayList<Pet> shelteredPets=new ArrayList<>();
-    public Pet(String name, int ID, Pet_type type, int age, Adoption_status adoptionStatus, Ready_for_adoption_status readyForAdoptionStatus, Treatment_Status treatmentStatus) {
+    public Pet(String name, Pet_type type, int age, Adoption_status adoptionStatus, Ready_for_adoption_status readyForAdoptionStatus, Treatment_Status treatmentStatus) {
         this.name = name;
-        this.ID = ID;
+        this.ID = no_pets;
         this.type = type;
         this.age = age;
         AdoptionStatus = adoptionStatus;
         ReadyForAdoptionStatus = readyForAdoptionStatus;
         TreatmentStatus = treatmentStatus;
+        no_pets++;
         shelteredPets.add(this);
     }
 
