@@ -1,5 +1,7 @@
 package User;
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Donor extends User {
@@ -15,7 +17,11 @@ public class Donor extends User {
 
     @Override
     public void Login() {
-
+        Scanner login = new Scanner(System.in);
+        System.out.println("Please Enter Your Username ");
+        name = login.next();
+        System.out.println("Please Enter Your Password");
+        password = login.next();
     }
 
     enum donation_Type { MONEY, FOOD, MEDICIN}
@@ -70,16 +76,17 @@ public class Donor extends User {
 
     public void OnsiteList()
     {
-        String day;
-        char time;
-        System.out.println("Please Enter your appointment");
-        System.out.println("Please Enter A Day");
-        Scanner onsite = new Scanner(System.in);
-        day= onsite.next();
-        System.out.println("Please Enter An Hour from 10am to 11pm");
-        time = onsite.next().charAt(0);
 
+        String  date,time ;
+        Scanner onsite = new Scanner(System.in);
+
+        System.out.println("Please Enter your appointment");
+        System.out.println("Enter A Date ");
+        date = onsite.next();
+        System.out.println("Enter A Time ");
+        time = onsite.next();
     }
+
 
     public void MakeDonation (donation_Type donationType)
     {
@@ -115,19 +122,16 @@ public class Donor extends User {
                 break;
 
 
-
         }
 
     }
     public void AskForAdobtion(){
 
-        int numOfPet;
-
         Admin admin = new Admin();
         admin. DisplayReadyForAdoptionPets();
-        System.out.println("Please Choose A Pet To Adopt by choosing its number");
+        System.out.println("Please Choose A Pet To Adopt by choosing its number from 1 to " + Vet.readyPets);
         Scanner adoptedPet = new Scanner(System.in);
-        numOfPet= adoptedPet.nextInt();
+
 
 
 

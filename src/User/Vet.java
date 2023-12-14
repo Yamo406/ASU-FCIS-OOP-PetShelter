@@ -1,5 +1,6 @@
-public class Vet eximport pet;
-tends User {
+package User;
+import Pet.Pet;
+public class Vet extends User {
     private int yrs_exp; //years of experience
     private int vetId;
     private Pet[] pets;
@@ -34,6 +35,8 @@ tends User {
 
     }
 
+    static int readyPets =0; // number of ready for adoption pets
+
     public void updatePetStatus(Pet p,Treatment_Status TS)
     {
         for(Pet item:pets)
@@ -43,6 +46,7 @@ tends User {
                 if(TS == Treatment_Status.Treated)
                 {
                     p.setReadyForAdoptionStatus(Pet.Ready_for_adoption_status.Ready);
+                    readyPets ++;
 
                 }
 

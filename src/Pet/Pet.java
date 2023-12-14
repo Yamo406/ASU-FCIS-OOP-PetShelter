@@ -1,3 +1,4 @@
+package Pet;
 public class Pet implements Comparable
 {
     private String name;
