@@ -65,7 +65,6 @@ public class Admin extends User
 
   public void DisplayDonorData(int donorIDInt)
   {
-    Donor donor = new Donor(name, password, 0);
     for (Donor indexDonor : registeredDonor) {
       if (indexDonor.getDonor_ID() == donorIDInt) {
           indexDonor.getDonor_ID();
