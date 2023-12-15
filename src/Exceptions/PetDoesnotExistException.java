@@ -1,3 +1,4 @@
+package Exceptions;
 public class PetDoesnotExistException extends Exception
 {
     public PetDoesnotExistException()

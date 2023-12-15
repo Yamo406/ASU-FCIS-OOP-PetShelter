@@ -1,8 +1,8 @@
 package User;
-
+import Exceptions.*;
 import java.util.*;
 import java.io.*;
-import Pet.*;
+import Pet.Pet;
 import Rooms.*;
 
 public class Admin extends User
@@ -77,7 +77,7 @@ public class Admin extends User
   public void DisplayPetData()
   {
     Pet pet = new Pet(name, null, 0, null, null, null);
-    pet.getID;
+    pet.getID();
     pet.getName();
     pet.getAge();
     pet.getType();
@@ -89,7 +89,9 @@ public class Admin extends User
   public void DisplayReadyForAdoptionPets()
   {
     Pet pet = new Pet(name, null, 0, null, null, null);
+
     pet.getReadyForAdoptionStatus();
+
 
   }
 

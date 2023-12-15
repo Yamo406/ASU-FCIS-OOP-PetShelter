@@ -1,5 +1,5 @@
 package User;
-
+import Exceptions.*;
 import javax.sound.midi.Soundbank;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -17,6 +17,9 @@ public class Donor extends User {
     protected static ArrayList<Donor> registeredDonor= new ArrayList<>();
 
 
+    public Donor (){
+        super();
+    }
     public Donor(String name, String password, int card_Number)
     {
         super(name, password);
@@ -28,21 +31,22 @@ public class Donor extends User {
     @Override
     public void Register(User user) throws RegisterException
     {
-            for(User item:registeredUser)
+        for(User item:registeredUser)
+        {
+            if (user.compareTo(item)==0)
             {
-                if (user.compareTo(item)==0)
-                {
-                    throw new RegisterException();
-                }
-                else
-                {
-                    registeredUser.add(user);
-                    System.out.println("Please enter your card number");
-                    Scanner inf= new Scanner(System.in);
-                    int CardInfo= inf.nextInt();
-                    registeredDonor.add(new Donor(user.getName(), user.getPassword(), CardInfo));
-                }
+                throw new RegisterException();
             }
+            else
+            {
+                registeredUser.add(user);
+                System.out.println("Please enter your card number");
+                Scanner inf= new Scanner(System.in);
+                int CardInfo = inf.nextInt();
+                setCard_Number(CardInfo);
+                registeredDonor.add(new Donor(user.getName(), user.getPassword(), CardInfo));
+            }
+        }
     }
     public int getDonor_ID() {
         return donor_ID;
@@ -76,26 +80,37 @@ public class Donor extends User {
     public void OnlineList()
     {
         int moneyAmount ;
-        System.out.println("Please Enter Your Personal Card Number");
         Scanner online = new Scanner(System.in);
-        card_Number = online.nextInt();
-        System.out.println("Please Enter The Amount of Money you will donate");
-        moneyAmount = online.nextInt();
+        while (true) {
+            System.out.println("Please Enter Your Personal Card Number");
+            int This_card_Number = online.nextInt();
+            if(This_card_Number == card_Number)
+            {
+                System.out.println("Please Enter The Amount of Money you will donate");
+                moneyAmount = online.nextInt();
+                break;
+            }
+            else {
+                System.out.println("Invalid Card Number...... Please Try Again");
+            }
+        }
+
     }
 
     public void OnsiteList()
     {
+        AppointmentForDonor appoint = new AppointmentForDonor();
+        while(true) {
+            appoint.MakeAppoint(appoint);
+            boolean Done = appoint.checkAvailability(appoint);
+            if(!Done)
+                continue;
+            else
+                break;
 
-        String  date,time ;
-        Scanner onsite = new Scanner(System.in);
+        }
 
-        System.out.println("Please Enter your appointment");
-        System.out.println("Enter A Date ");
-        date = onsite.next();
-        System.out.println("Enter A Time ");
-        time = onsite.next();
     }
-
 
     public void MakeDonation (donation_Type donationType)
     {
@@ -105,7 +120,7 @@ public class Donor extends User {
 
                 while (true)
                 {
-                    System.out.println("Do You Want ONLINE Deleviry OR ONSITE ?");
+                    System.out.println("Do You Want ONLINE Delivery OR ONSITE ?");
                     System.out.println("For ONLINE press 1 for ONSITE press 2");
                     Scanner answer = new Scanner(System.in);
                     Answer = answer.nextInt();
@@ -134,6 +149,8 @@ public class Donor extends User {
         }
 
     }
+
+
 //    public void AskForAdoption(){
 //
 //        Admin admin = new Admin();

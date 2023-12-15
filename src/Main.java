@@ -1,5 +1,5 @@
 import User.*;
-import Room.*;
+import Rooms.*;
 import Pet.Pet;
 //added the Pet Class
 import java.util.*;
@@ -9,15 +9,15 @@ enum Pet_type
 }
 enum Adoption_status
 {
-    Adopted, Not_adopted;
+    ADOPTED, NOT_ADOPTED;
 }
 enum Ready_for_adoption_status
 {
-    Ready, Not_Ready;
+    READY, NOT_READY;
 }
 enum Treatment_Status
 {
-    Sick, Recovering, Treated;
+    SICK, RECOVERING, TREATED;
 }
 //added a bunch of enums that are needed for the Pet Class
 public class Main {
