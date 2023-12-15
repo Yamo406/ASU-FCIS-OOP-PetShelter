@@ -116,7 +116,6 @@ public class Donor extends User
         }
 
     }
-
     public void MakeDonation (donation_Type donationType)
     {
         int Answer;
@@ -154,18 +153,15 @@ public class Donor extends User
         }
 
     }
-
-
     public void AskForAdoption(){
 
         boolean founded = false;
         Admin admin = new Admin();
-        Vet vet = new Vet ();
         admin. DisplayReadyForAdoptionPets();
         System.out.println("Please Choose A Pet To Adopt by choosing its ID ");
         Scanner adoptedPet = new Scanner(System.in);
         int id = adoptedPet.nextInt();
-            for(Pet item : vet.Readypets )
+            for(Pet item :Pet.Readypets )
             {
                 if(item.getID() == id)
                 {
@@ -176,12 +172,15 @@ public class Donor extends User
             }
             if(founded)
             {
+                int num;
+                Scanner input = new Scanner(System.in);
                 System.out.println("Please Choose An Appointment By Choosing the Appointment Number");
                 for (String s: appointment)
                 {
                     System.out.println(s);
                 }
                 System.out.println("You Can Come At Any Hour That We Mentioned");
+                num = input.nextInt();
             }
             else {
                 System.out.println(" Invalid Pet ID ");

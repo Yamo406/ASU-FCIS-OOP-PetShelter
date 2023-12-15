@@ -12,6 +12,7 @@ public class Pet implements Comparable
     protected Ready_for_adoption_status ReadyForAdoptionStatus;
     protected Treatment_Status TreatmentStatus;
     public static ArrayList<Pet> shelteredPets=new ArrayList<>();
+    public static ArrayList<Pet> Readypets= new ArrayList<>();
     public Pet(String name, Pet_type type, int age, Adoption_status adoptionStatus, Ready_for_adoption_status readyForAdoptionStatus, Treatment_Status treatmentStatus) {
         this.name = name;
         this.ID = no_pets;

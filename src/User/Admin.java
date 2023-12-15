@@ -89,8 +89,7 @@ public class Admin extends User
 
   public void DisplayReadyForAdoptionPets()
   {
-    Vet V = new Vet();
-    for(Pet item : V.Readypets )
+    for(Pet item : Pet.Readypets )
     {
        System.out.println("Pet Number " +item.getID()+ "Pet Name" + item.getName() + " Pet Type " +item.getType());
 
