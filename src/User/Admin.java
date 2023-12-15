@@ -22,13 +22,20 @@ public class Admin extends User
     {
       FileWriter fileWriter = new FileWriter(filePath);
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-      
+      Pet pet = new Pet(filePath, null, 0, null, null, null);
       System.out.println("Please inter the data of the pet.");
       System.out.println("Pet Name:");
-      scanner.nextLine();
+      pet.setName(scanner.nextLine());
+      System.out.println("Pet Age:");
+      pet.setAge(scanner.nextInt());
+      System.out.println("Pet Type:");
+      pet.setType(scanner.nextLine());
+      System.out.println("Pet Adoption Status:");
+      pet.setAdoptionStatus(scanner.nextLine());
+      System.out.println("Pet Treatment Status:");
+      pet.setTreatmentStatus(scanner.nextLine());
 
     } catch (Exception e) {
-      // TODO: handle exception
     }
   }
 
@@ -38,7 +45,7 @@ public class Admin extends User
     System.out.println("Delete this entitiy?");
     do 
     {
-      System.out.println("Please enter your choice: ");
+      System.out.println("Please enter your choice: (y/n)");
       answer = scanner.next().charAt(0);
 
     } while (answer != 'y' || answer != 'Y' || answer != 'N' || answer != 'n');
@@ -52,12 +59,8 @@ public class Admin extends User
     }
   }
 
-  public void DisplayAvailableOperationSlots(int roomIDint)
+  public void DisplayAvailableOperationSlots()
   {
-   for (operation operation : roomIDint) {
-    
-   }
-    
   }
 
   public void DisplayDonorData(int donorIDInt)
@@ -116,15 +119,19 @@ public class Admin extends User
 
   }
 
-  public void UpdatePetData()
+  public void UpdatePetData(int petIDint)
   {
-    Pet pet = new Pet(name, null, 0, null, null, null);
-    pet.setID(0);
-    pet.setName(name);
-    pet.setAge(0);
-    pet.setType(null);
-    pet.setAdoptionStatus(null);
-    pet.setTreatmentStatus(null);
+    for (Pet itemPet : shelteredPets) {
+      if (itemPet.getID() == petIDint)
+      {
+        itemPet.setName(scanner.nextLine());
+        itemPet.setAge(scanner.nextInt());
+        itemPet.setType(scanner.nextLine());
+        itemPet.setAdoptionStatus(scanner.nextLine());
+        itemPet.setTreatmentStatus(scanner.nextLine());
+        itemPet.setReadyForAdoptionStatus(scanner.nextLine());
+      }
+    }
   }
 
   @Override
