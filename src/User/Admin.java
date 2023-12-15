@@ -2,12 +2,13 @@ package User;
 import Exceptions.*;
 import java.util.*;
 import java.io.*;
-import Pet.Pet;
+import Pet.*;
 import Rooms.*;
 
 public class Admin extends User
 {
 
+  public Admin (){ super();}
   public Admin(String name, String password) 
   {
     super(name, password);
@@ -54,7 +55,7 @@ public class Admin extends User
   public void DisplayAvailableOperationSlots()
   {
     operation operation = new operation();
-    return operation.displayAvailableRooms();
+     operation.displayAvailableRooms();
     
   }
 
@@ -88,10 +89,12 @@ public class Admin extends User
 
   public void DisplayReadyForAdoptionPets()
   {
-    Pet pet = new Pet(name, null, 0, null, null, null);
+    Vet V = new Vet();
+    for(Pet item : V.Readypets )
+    {
+       System.out.println("Pet Number " +item.getID()+ "Pet Name" + item.getName() + " Pet Type " +item.getType());
 
-    pet.getReadyForAdoptionStatus();
-
+    }
 
   }
 

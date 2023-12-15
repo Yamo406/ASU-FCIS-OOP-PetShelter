@@ -1,5 +1,6 @@
 package User;
 import Exceptions.*;
+import Pet.*;
 import javax.sound.midi.Soundbank;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,13 +9,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 enum donation_Type { MONEY, FOOD, MEDICINE}
 enum delivery_Type {ONLINE, ONSITE }
-public class Donor extends User {
+public class Donor extends User
+{
     private int donor_ID;
     private int card_Number;
     private donation_Type donation;
     private delivery_Type delivery;
     private static int no_donors=0;
     protected static ArrayList<Donor> registeredDonor= new ArrayList<>();
+
+    private String [] appointment= new String[]{" 1_ Saturday >>> From 10am To 4pm ",
+            "2_ Sunday >>> From 11am To 4pm ","3_ Monday >>> From 10am To 5pm", "4_ Tuesday >>> From 12am To 3pm",
+            "5_ Friday >>> All the day from 9am to 11 pm" }; //in these appointments we can welcome you and let you
 
 
     public Donor (){
@@ -76,10 +82,9 @@ public class Donor extends User {
         return delivery;
     }
 
-
     public void OnlineList()
     {
-        int moneyAmount ;
+        int moneyAmount;
         Scanner online = new Scanner(System.in);
         while (true) {
             System.out.println("Please Enter Your Personal Card Number");
@@ -151,20 +156,37 @@ public class Donor extends User {
     }
 
 
-//    public void AskForAdoption(){
-//
-//        Admin admin = new Admin();
-//        admin. DisplayReadyForAdoptionPets();
-//        System.out.println("Please Choose A Pet To Adopt by choosing its number from 1 to " + Vet.readyPets);
-//        Scanner adoptedPet = new Scanner(System.in);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    }
+    public void AskForAdoption(){
+
+        boolean founded = false;
+        Admin admin = new Admin();
+        Vet vet = new Vet ();
+        admin. DisplayReadyForAdoptionPets();
+        System.out.println("Please Choose A Pet To Adopt by choosing its ID ");
+        Scanner adoptedPet = new Scanner(System.in);
+        int id = adoptedPet.nextInt();
+            for(Pet item : vet.Readypets )
+            {
+                if(item.getID() == id)
+                {
+                    item.setAdoptionStatus(Adoption_status.ADOPTED);
+                    founded = true;
+                    break;
+                }
+            }
+            if(founded)
+            {
+                System.out.println("Please Choose An Appointment By Choosing the Appointment Number");
+                for (String s: appointment)
+                {
+                    System.out.println(s);
+                }
+                System.out.println("You Can Come At Any Hour That We Mentioned");
+            }
+            else {
+                System.out.println(" Invalid Pet ID ");
+            }
+    }
+
 }
+
