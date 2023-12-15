@@ -51,8 +51,11 @@ public class Admin extends User
     }
   }
 
-  public void DisplayAvailableOperationSlots(String )
+  public void DisplayAvailableOperationSlots(int roomIDint)
   {
+    for (int index = 0; index < array.length; index++) {
+      
+    }
     operation operation = new operation();
     return operation.displayAvailableRooms();
     
