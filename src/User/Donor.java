@@ -1,5 +1,6 @@
 package User;
-
+import Exceptions.*;
+import Pet.*;
 import javax.sound.midi.Soundbank;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 enum donation_Type { MONEY, FOOD, MEDICINE}
 enum delivery_Type {ONLINE, ONSITE }
-public class Donor extends User {
+public class Donor extends User
+{
     private int donor_ID;
     private int card_Number;
     private donation_Type donation;
@@ -16,7 +18,14 @@ public class Donor extends User {
     private static int no_donors=0;
     protected static ArrayList<Donor> registeredDonor= new ArrayList<>();
 
+    private String [] appointment= new String[]{" 1_ Saturday >>> From 10am To 4pm ",
+            "2_ Sunday >>> From 11am To 4pm ","3_ Monday >>> From 10am To 5pm", "4_ Tuesday >>> From 12am To 3pm",
+            "5_ Friday >>> All the day from 9am to 11 pm" }; //in these appointments we can welcome you and let you
 
+
+    public Donor (){
+        super();
+    }
     public Donor(String name, String password, int card_Number)
     {
         super(name, password);
@@ -28,21 +37,22 @@ public class Donor extends User {
     @Override
     public void Register(User user) throws RegisterException
     {
-            for(User item:registeredUser)
+        for(User item:registeredUser)
+        {
+            if (user.compareTo(item)==0)
             {
-                if (user.compareTo(item)==0)
-                {
-                    throw new RegisterException();
-                }
-                else
-                {
-                    registeredUser.add(user);
-                    System.out.println("Please enter your card number");
-                    Scanner inf= new Scanner(System.in);
-                    int CardInfo= inf.nextInt();
-                    registeredDonor.add(new Donor(user.getName(), user.getPassword(), CardInfo));
-                }
+                throw new RegisterException();
             }
+            else
+            {
+                registeredUser.add(user);
+                System.out.println("Please enter your card number");
+                Scanner inf= new Scanner(System.in);
+                int CardInfo = inf.nextInt();
+                setCard_Number(CardInfo);
+                registeredDonor.add(new Donor(user.getName(), user.getPassword(), CardInfo));
+            }
+        }
     }
     public int getDonor_ID() {
         return donor_ID;
@@ -72,30 +82,40 @@ public class Donor extends User {
         return delivery;
     }
 
-
     public void OnlineList()
     {
-        int moneyAmount ;
-        System.out.println("Please Enter Your Personal Card Number");
+        int moneyAmount;
         Scanner online = new Scanner(System.in);
-        card_Number = online.nextInt();
-        System.out.println("Please Enter The Amount of Money you will donate");
-        moneyAmount = online.nextInt();
+        while (true) {
+            System.out.println("Please Enter Your Personal Card Number");
+            int This_card_Number = online.nextInt();
+            if(This_card_Number == card_Number)
+            {
+                System.out.println("Please Enter The Amount of Money you will donate");
+                moneyAmount = online.nextInt();
+                break;
+            }
+            else {
+                System.out.println("Invalid Card Number...... Please Try Again");
+            }
+        }
+
     }
 
     public void OnsiteList()
     {
+        AppointmentForDonor appoint = new AppointmentForDonor();
+        while(true) {
+            appoint.MakeAppoint(appoint);
+            boolean Done = appoint.checkAvailability(appoint);
+            if(!Done)
+                continue;
+            else
+                break;
 
-        String  date,time ;
-        Scanner onsite = new Scanner(System.in);
+        }
 
-        System.out.println("Please Enter your appointment");
-        System.out.println("Enter A Date ");
-        date = onsite.next();
-        System.out.println("Enter A Time ");
-        time = onsite.next();
     }
-
 
     public void MakeDonation (donation_Type donationType)
     {
@@ -105,7 +125,7 @@ public class Donor extends User {
 
                 while (true)
                 {
-                    System.out.println("Do You Want ONLINE Deleviry OR ONSITE ?");
+                    System.out.println("Do You Want ONLINE Delivery OR ONSITE ?");
                     System.out.println("For ONLINE press 1 for ONSITE press 2");
                     Scanner answer = new Scanner(System.in);
                     Answer = answer.nextInt();
@@ -134,20 +154,39 @@ public class Donor extends User {
         }
 
     }
-//    public void AskForAdoption(){
-//
-//        Admin admin = new Admin();
-//        admin. DisplayReadyForAdoptionPets();
-//        System.out.println("Please Choose A Pet To Adopt by choosing its number from 1 to " + Vet.readyPets);
-//        Scanner adoptedPet = new Scanner(System.in);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    }
+
+
+    public void AskForAdoption(){
+
+        boolean founded = false;
+        Admin admin = new Admin();
+        Vet vet = new Vet ();
+        admin. DisplayReadyForAdoptionPets();
+        System.out.println("Please Choose A Pet To Adopt by choosing its ID ");
+        Scanner adoptedPet = new Scanner(System.in);
+        int id = adoptedPet.nextInt();
+            for(Pet item : vet.Readypets )
+            {
+                if(item.getID() == id)
+                {
+                    item.setAdoptionStatus(Adoption_status.ADOPTED);
+                    founded = true;
+                    break;
+                }
+            }
+            if(founded)
+            {
+                System.out.println("Please Choose An Appointment By Choosing the Appointment Number");
+                for (String s: appointment)
+                {
+                    System.out.println(s);
+                }
+                System.out.println("You Can Come At Any Hour That We Mentioned");
+            }
+            else {
+                System.out.println(" Invalid Pet ID ");
+            }
+    }
+
 }
+

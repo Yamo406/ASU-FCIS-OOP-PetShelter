@@ -1,5 +1,7 @@
 package User;
-
+import Exceptions.*;
+import Pet.*;
+import Rooms.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 enum medicine
@@ -10,6 +12,8 @@ public class Vet extends User {
     private int yrs_exp;
     private int vetId;
     private ArrayList<Pet> pets= new ArrayList<>();
+
+    protected ArrayList<Pet> Readypets= new ArrayList<>();
     private static int no_Vets=0;
     protected static ArrayList<Vet> registeredVet= new ArrayList<>();
 
@@ -21,6 +25,7 @@ public class Vet extends User {
         return vetId;
     }
 
+    public Vet(){super();}
     public Vet(String username, String password, int yrs_exp) {
         super(username, password);
         this.yrs_exp = yrs_exp;
@@ -34,11 +39,11 @@ public class Vet extends User {
             if(item.getID()==pet_id)
             {
                 found=true;
-                if(item.getTreatmentStatus()==Treatment_Status.Sick)
+                if(item.getTreatmentStatus()== Treatment_Status.SICK)
                 {
                     System.out.println("This pet needs"+medicine.FIRST_DOSE);
                 }
-                else if(item.getTreatmentStatus()==Treatment_Status.Recovering)
+                else if(item.getTreatmentStatus()== Treatment_Status.RECOVERING)
                 {
                     System.out.println("This pet needs"+medicine.FINAL_DOSE);
                 }
@@ -98,9 +103,10 @@ public class Vet extends User {
         {
             if(item.compareTo(p)==0)
             {
-                if(TS == Treatment_Status.Treated)
+                if(TS == Treatment_Status.TREATED)
                 {
-                    p.setReadyForAdoptionStatus(Ready_for_adoption_status.Ready);
+                    p.setReadyForAdoptionStatus(Ready_for_adoption_status.READY);
+                    Readypets.add(p);
 
                 }
 

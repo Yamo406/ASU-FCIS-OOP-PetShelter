@@ -8,6 +8,8 @@ public abstract class User implements Comparable {
     protected String name;
     protected String password;
     protected static ArrayList<User> registeredUser= new ArrayList<>();
+
+    public User (){}
     public User(String name, String password) {
         this.name = name;
         this.password = password;

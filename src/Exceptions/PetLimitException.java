@@ -1,3 +1,4 @@
+package Exceptions;
 public class PetLimitException extends Exception
 {
     public PetLimitException()
