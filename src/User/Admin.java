@@ -52,39 +52,51 @@ public class Admin extends User
     }
   }
 
-  public void DisplayAvailableOperationSlots()
+  public void DisplayAvailableOperationSlots(int roomIDint)
   {
-    operation operation = new operation();
-     operation.displayAvailableRooms();
+   for (operation operation : roomIDint) {
+    
+   }
     
   }
 
-  public void DisplayDonorData()
+  public void DisplayDonorData(int donorIDInt)
   {
     Donor donor = new Donor(name, password, 0);
-    donor.getDonor_ID();
-    donor.getName();
-    donor.getCard_Number();
+    for (Donor indexDonor : registeredDonor) {
+      if (indexDonor.getDonor_ID() == donorIDInt) {
+          indexDonor.getDonor_ID();
+          indexDonor.getName();
+          indexDonor.getCard_Number();
+      }
+    }
   }
 
-  public void DisplayVetData()
+  public void DisplayVetData(int vetIdInt)
   {
-    Vet vet = new Vet(name, password, 0);
-    vet.getVetId();
-    vet.getName();
-    vet.getYrs_exp();
+    for (Vet indexVet : registeredVet) {
+      if (indexVet.getVetId() == vetIdInt)
+      {
+        indexVet.getVetId();
+        indexVet.getName();
+        indexVet.getYrs_exp();
+      }
+    }
   }
-
-  public void DisplayPetData()
+  
+  public void DisplayPetData(int petIDint)
   {
-    Pet pet = new Pet(name, null, 0, null, null, null);
-    pet.getID();
-    pet.getName();
-    pet.getAge();
-    pet.getType();
-    pet.getAdoptionStatus();
-    pet.getTreatmentStatus();
+    for (Pet indexPet : shelteredPets) {
+      if (indexPet.getID() == petIDint) {
+        indexPet.getID();
+        indexPet.getName();
+        indexPet.getAge();
+        indexPet.getType();
+        indexPet.getAdoptionStatus();
+        indexPet.getTreatmentStatus();
 
+      }
+    }
   }
 
   public void DisplayReadyForAdoptionPets()
@@ -92,7 +104,6 @@ public class Admin extends User
     for(Pet item : Pet.Readypets )
     {
        System.out.println("Pet Number " +item.getID()+ "Pet Name" + item.getName() + " Pet Type " +item.getType());
-
     }
 
   }
