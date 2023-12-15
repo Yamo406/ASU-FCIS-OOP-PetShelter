@@ -1,18 +1,17 @@
-package Pet;
 import java.util.ArrayList;
 
 public class Pet implements Comparable
 {
     private String name;
     private int ID;
-    protected Pet_type type;
+    private Pet_type type;
     private int age;
     private static int no_pets=0;
-    protected Adoption_status AdoptionStatus;
-    protected Ready_for_adoption_status ReadyForAdoptionStatus;
-    protected Treatment_Status TreatmentStatus;
-    public static ArrayList<Pet> shelteredPets=new ArrayList<>();
-    public static ArrayList<Pet> Readypets= new ArrayList<>();
+    private Adoption_status AdoptionStatus;
+    private Ready_for_adoption_status ReadyForAdoptionStatus;
+    private Treatment_Status TreatmentStatus;
+    public static ArrayList<Pet> shelteredPets=new ArrayList<>(10);
+    public static ArrayList<Pet> ReadyPets= new ArrayList<>();
     public Pet(String name, Pet_type type, int age, Adoption_status adoptionStatus, Ready_for_adoption_status readyForAdoptionStatus, Treatment_Status treatmentStatus) {
         this.name = name;
         this.ID = no_pets;
@@ -22,7 +21,11 @@ public class Pet implements Comparable
         ReadyForAdoptionStatus = readyForAdoptionStatus;
         TreatmentStatus = treatmentStatus;
         no_pets++;
-        shelteredPets.add(this);
+        shelteredPets.set(ID,this);
+        if(ReadyForAdoptionStatus==Ready_for_adoption_status.Ready)
+        {
+            ReadyPets.set(ID,this);
+        }
     }
 
     public String getName() {
