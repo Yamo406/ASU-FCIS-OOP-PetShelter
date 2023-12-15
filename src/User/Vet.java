@@ -13,7 +13,6 @@ public class Vet extends User {
     private int vetId;
     private ArrayList<Pet> pets= new ArrayList<>();
 
-    protected ArrayList<Pet> Readypets= new ArrayList<>();
     private static int no_Vets=0;
     protected static ArrayList<Vet> registeredVet= new ArrayList<>();
 
@@ -106,7 +105,7 @@ public class Vet extends User {
                 if(TS == Treatment_Status.TREATED)
                 {
                     p.setReadyForAdoptionStatus(Ready_for_adoption_status.READY);
-                    Readypets.add(p);
+                   Pet.Readypets.add(p);
 
                 }
 
