@@ -1,3 +1,5 @@
+package Rooms;
+
 import java.util.ArrayList;
 
 public class operation implements ShelterRoom{
@@ -32,18 +34,18 @@ public class operation implements ShelterRoom{
         }
         return found;
     }
-        public void displayAvailableRooms() {
-            for (operation room : availableRoom )
+    public void displayAvailableRooms() {
+        for (operation room : availableRoom )
+        {
+            if (isReserved)
             {
-                if (isReserved)
-                {
-                    System.out.println(" the room : id "+getRoomId()+"is already reserved");
-                }
-                else
-                {
-                    System.out.println("Available operation room id :"+ getRoomId());
-                    isReserved();
-                }
+                System.out.println(" the room : id "+getRoomId()+"is already reserved");
+            }
+            else
+            {
+                System.out.println("Available operation room id :"+ getRoomId());
+                isReserved();
+            }
 
         }
     }

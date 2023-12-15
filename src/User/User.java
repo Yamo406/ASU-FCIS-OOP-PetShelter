@@ -1,5 +1,8 @@
+package User;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import Exceptions.*;
 
 public abstract class User implements Comparable {
     protected String name;
