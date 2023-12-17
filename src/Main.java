@@ -28,21 +28,32 @@ public class Main {
                         switch (choice)
                         {
                             case 1:
-                                boolean found=false;
-                                int target=0;
+                                boolean Vfound=false;
+                                int Vtarget=0;
                                 for(Vet item: Vet.registeredVet)
                                 {
                                     if((Name.compareTo(item.getName())==0)&&Password.compareTo(item.getPassword())==0)
                                     {
-                                        found =true;
-                                        target=item.getVetId();
+                                        Vfound =true;
+                                        Vtarget=item.getVetId();
                                     }
                                 }
-                                Vet currently_Vet=Vet.registeredVet.get(target);
+                                Vet currently_Vet=Vet.registeredVet.get(Vtarget);
                                  // at this line we will write all the menus possible for a vet user
                                 break;
                             case 2:
-                                Donor current_Donor=new Donor();
+                                boolean Dfound=false;
+                                int Dtarget=0;
+                                for(Donor item: Donor.registeredDonor)
+                                {
+                                    if((Name.compareTo(item.getName())==0)&&Password.compareTo(item.getPassword())==0)
+                                    {
+                                        Dfound =true;
+                                        Dtarget=item.getDonor_ID();
+                                    }
+                                }
+                                Donor currently_Donor=Donor.registeredDonor.get(Dtarget);
+                                // at this line we will write all the menus possible for a donor user
                                 break;
                             case 3:
                                 Admin currently_Admin=new Admin();
@@ -59,14 +70,17 @@ public class Main {
                 System.out.println("You are now creating an account");
                 System.out.println("To create a Vet account press 1, to create a Donor account press 2");
                 inp_1 = input.nextInt();
+                System.out.println("Enter your username");
+                String inp_2 = input.next();
+                System.out.println("Enter your password");
+                String inp_3 = input.next();
                 if (inp_1 == 1) {
-                    System.out.println("Enter your username");
-                    String inp_2 = input.next();
-                    System.out.println("Enter your password");
-                    String inp_3 = input.next();
                     Vet user = new Vet(inp_2, inp_3);
                     user.Register(user);
-                } else if (inp_1 == 2) {
+                } else if (inp_1 == 2)
+                {
+                    Donor user = new Donor(inp_2, inp_3);
+                    user.Register(user); 
                 }
             }
             else if (inp_1==3)
