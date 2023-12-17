@@ -1,6 +1,3 @@
-package User;
-import Exceptions.*;
-import Pet.*;
 import javax.sound.midi.Soundbank;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -21,15 +18,21 @@ public class Donor extends User
     private String [] appointment= new String[]{" 1_ Saturday >>> From 10am To 4pm ",
             "2_ Sunday >>> From 11am To 4pm ","3_ Monday >>> From 10am To 5pm", "4_ Tuesday >>> From 12am To 3pm",
             "5_ Friday >>> All the day from 9am to 11 pm" }; //in these appointments we can welcome you and let you
-
-
-    public Donor (){
+    public Donor()
+    {
         super();
+
+    }
+    public Donor(String name, String password)
+    {
+        super(name, password);
+        this.donor_ID=no_donors;
+        no_donors++;
     }
     public Donor(String name, String password, int card_Number)
     {
         super(name, password);
-        this.donor_ID=no_donors+100;
+        this.donor_ID=no_donors;
         this.card_Number= card_Number;
         no_donors++;
     }
@@ -37,22 +40,22 @@ public class Donor extends User
     @Override
     public void Register(User user) throws RegisterException
     {
-        for(User item:registeredUser)
+        Donor d = (Donor) user;
+        registeredUser.add(d.getUser_index(),d);
+        registeredDonor.add(d.getDonor_ID(),d);
+        for(User item:registeredDonor)
         {
-            if (user.compareTo(item)==0)
+            if ((d.compareTo(item)==0)&&(d.getUser_index()!=registeredUser.indexOf(item)))
             {
+                registeredDonor.remove(d.getDonor_ID());
+                registeredUser.remove(d.getUser_index());
                 throw new RegisterException();
             }
-            else
-            {
-                registeredUser.add(user);
-                System.out.println("Please enter your card number");
-                Scanner inf= new Scanner(System.in);
-                int CardInfo = inf.nextInt();
-                setCard_Number(CardInfo);
-                registeredDonor.add(new Donor(user.getName(), user.getPassword(), CardInfo));
-            }
         }
+        System.out.println("Please enter your card number");
+        Scanner inf= new Scanner(System.in);
+        int CardInfo = inf.nextInt();
+        d.setCard_Number(CardInfo);
     }
     public int getDonor_ID() {
         return donor_ID;
@@ -161,30 +164,30 @@ public class Donor extends User
         System.out.println("Please Choose A Pet To Adopt by choosing its ID ");
         Scanner adoptedPet = new Scanner(System.in);
         int id = adoptedPet.nextInt();
-            for(Pet item :Pet.Readypets )
+        for(Pet item :Pet.ReadyPets )
+        {
+            if(item.getID() == id)
             {
-                if(item.getID() == id)
-                {
-                    item.setAdoptionStatus(Adoption_status.ADOPTED);
-                    founded = true;
-                    break;
-                }
+                item.setAdoptionStatus(Adoption_status.ADOPTED);
+                founded = true;
+                break;
             }
-            if(founded)
+        }
+        if(founded)
+        {
+            int num;
+            Scanner input = new Scanner(System.in);
+            System.out.println("Please Choose An Appointment By Choosing the Appointment Number");
+            for (String s: appointment)
             {
-                int num;
-                Scanner input = new Scanner(System.in);
-                System.out.println("Please Choose An Appointment By Choosing the Appointment Number");
-                for (String s: appointment)
-                {
-                    System.out.println(s);
-                }
-                System.out.println("You Can Come At Any Hour That We Mentioned");
-                num = input.nextInt();
+                System.out.println(s);
             }
-            else {
-                System.out.println(" Invalid Pet ID ");
-            }
+            System.out.println("You Can Come At Any Hour That We Mentioned");
+            num = input.nextInt();
+        }
+        else {
+            System.out.println(" Invalid Pet ID ");
+        }
     }
 
 }
