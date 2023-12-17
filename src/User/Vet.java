@@ -1,7 +1,7 @@
-package User;
-import Exceptions.*;
-import Pet.*;
-import Rooms.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 enum medicine
@@ -11,10 +11,9 @@ enum medicine
 public class Vet extends User {
     private int yrs_exp;
     private int vetId;
-    private ArrayList<Pet> pets= new ArrayList<>();
-
+    private ArrayList<Pet> pets= new ArrayList<>(10);
     private static int no_Vets=0;
-    protected static ArrayList<Vet> registeredVet= new ArrayList<>();
+    protected static ArrayList<Vet> registeredVet= new ArrayList<>(10);
 
     public int getYrs_exp() {
         return yrs_exp;
@@ -23,13 +22,18 @@ public class Vet extends User {
     public int getVetId() {
         return vetId;
     }
-
-    public Vet(){super();}
-    public Vet(String username, String password, int yrs_exp) {
+    public Vet()
+    {
+        super();
+    }
+    public Vet(String username, String password)
+    {
         super(username, password);
-        this.yrs_exp = yrs_exp;
-        this.vetId = no_Vets+200;
+        this.vetId = no_Vets;
         no_Vets++;
+        System.out.println("Please enter your years of experience");
+        Scanner inf= new Scanner(System.in);
+        this.yrs_exp= inf.nextInt();
     }
     public void prescription(int pet_id) throws PetDoesnotExistException {
         boolean found=false;
@@ -38,11 +42,11 @@ public class Vet extends User {
             if(item.getID()==pet_id)
             {
                 found=true;
-                if(item.getTreatmentStatus()== Treatment_Status.SICK)
+                if(item.getTreatmentStatus()==Treatment_Status.SICK)
                 {
                     System.out.println("This pet needs"+medicine.FIRST_DOSE);
                 }
-                else if(item.getTreatmentStatus()== Treatment_Status.RECOVERING)
+                else if(item.getTreatmentStatus()==Treatment_Status.RECOVERING)
                 {
                     System.out.println("This pet needs"+medicine.FINAL_DOSE);
                 }
@@ -105,7 +109,6 @@ public class Vet extends User {
                 if(TS == Treatment_Status.TREATED)
                 {
                     p.setReadyForAdoptionStatus(Ready_for_adoption_status.READY);
-                   Pet.Readypets.add(p);
 
                 }
 
@@ -114,21 +117,17 @@ public class Vet extends User {
     }
 
     @Override
-    public void Register(User user) throws RegisterException
-    {
-        for(User item:registeredUser)
+    public void Register(User user) throws RegisterException, IOException {
+        Vet v = (Vet) user;
+        registeredUser.add(v.getUser_index(),v);
+        registeredVet.add(v.getVetId(),v);
+        for(User item:registeredVet)
         {
-            if (user.compareTo(item)==0)
+            if ((v.compareTo(item)==0)&&(v.getUser_index()!=registeredUser.indexOf(item)))
             {
+                registeredVet.remove(v.getVetId());
+                registeredUser.remove(v.getUser_index());
                 throw new RegisterException();
-            }
-            else
-            {
-                registeredUser.add(user);
-                System.out.println("Please enter your years of experience");
-                Scanner inf= new Scanner(System.in);
-                int yr_exp= inf.nextInt();
-                registeredVet.add(new Vet(user.getName(), user.getPassword(), yr_exp));
             }
         }
     }
