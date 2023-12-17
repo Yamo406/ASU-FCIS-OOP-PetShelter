@@ -1,40 +1,35 @@
-package User;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Exceptions.*;
 
 public abstract class User implements Comparable {
     protected String name;
     protected String password;
-    protected static ArrayList<User> registeredUser= new ArrayList<>();
-
-    public User (){}
+    protected int user_index;
+    protected static int no_users=0;
+    protected static ArrayList<User> registeredUser= new ArrayList<>(10);
     public User(String name, String password) {
         this.name = name;
         this.password = password;
+        user_index=no_users;
+        no_users++;
     }
-    public abstract void Register (User user) throws RegisterException;
 
-    public boolean Login() throws LoginException
+    public User() {
+
+    }
+
+    public abstract void Register (User user) throws RegisterException, IOException;
+    public static boolean Login(String Name,String Password) throws LoginException
     {
-            Scanner login = new Scanner(System.in);
-            System.out.println("Please Enter Your Username ");
-            String Name = login.next();
-            System.out.println("Please Enter Your Password");
-            String Password = login.next();
-            for(User item: User.registeredUser)
+            for(User item: registeredUser)
             {
                 if((Name.compareTo(item.getName())==0)&&Password.compareTo(item.getPassword())==0)
                 {
                     return true;
                 }
-                else
-                {
-                    continue;
-                }
             }
-            return false;
+            throw new LoginException();
     }
 
     @Override
@@ -69,5 +64,9 @@ public abstract class User implements Comparable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getUser_index() {
+        return user_index;
     }
 }
