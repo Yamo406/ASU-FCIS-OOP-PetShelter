@@ -1,8 +1,16 @@
+package main;
+import User.*;
+import  User.Vet.*;
+import Rooms.*;
+import Pet.*;
+//added the Pet Class
+import java.util.*;
+import Exceptions.*;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.Scanner;
+        import java.io.File;
+        import java.io.FileReader;
+        import java.io.FileWriter;
+        import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception
     {
@@ -28,35 +36,69 @@ public class Main {
                         switch (choice)
                         {
                             case 1:
-                                boolean Vfound=false;
-                                int Vtarget=0;
+                                boolean found=false;
+                                int target=0;
                                 for(Vet item: Vet.registeredVet)
                                 {
                                     if((Name.compareTo(item.getName())==0)&&Password.compareTo(item.getPassword())==0)
                                     {
-                                        Vfound =true;
-                                        Vtarget=item.getVetId();
+                                        found =true;
+                                        target=item.getVetId();
+
                                     }
+
+
                                 }
-                                Vet currently_Vet=Vet.registeredVet.get(Vtarget);
-                                 // at this line we will write all the menus possible for a vet user
+                                Vet currently_Vet=Vet.registeredVet.get(target);
+                                System.out.println("press 1 to give prescription of a pet or 2 to reserve operation or 3 to add pet ");
+                                Scanner in= new Scanner(System.in);
+                                int num=in.nextInt();
+                                Pet item2 =new Pet();
+                                 
+                                if(num==1)
+                                    currently_Vet . prescription(item2.getID());
+                                     else if(num==2)
+                                    currently_Vet. reserveOperationRoom() ;
+                            else
+                                    currently_Vet.addPet(item2.getID());
+                                // at this line we will write all the menus possible for a vet user
                                 break;
                             case 2:
-                                boolean Dfound=false;
-                                int Dtarget=0;
-                                for(Donor item: Donor.registeredDonor)
-                                {
-                                    if((Name.compareTo(item.getName())==0)&&Password.compareTo(item.getPassword())==0)
-                                    {
-                                        Dfound =true;
-                                        Dtarget=item.getDonor_ID();
-                                    }
+                                Donor current_Donor=new Donor();
+                                System.out.println("press 1 to give make donation  or press 2 to ask for adoption");
+                                Scanner inp= new Scanner(System.in);
+                                int nm=inp.nextInt();
+                                if(nm==1){
+                                    current_Donor.MakeDonation ();
                                 }
-                                Donor currently_Donor=Donor.registeredDonor.get(Dtarget);
-                                // at this line we will write all the menus possible for a donor user
+                                else
+                                     current_Donor.AskForAdoption();
                                 break;
                             case 3:
                                 Admin currently_Admin=new Admin();
+                                System.out.println("press 1 to add pets or press 2 to dalete any entity or 3 to Display Available OperationSlots or 4 to Display Donor theData or 5 to  Display the Vet Data or 6 toDisplay Pet Data or 7 to Display Ready ForAdoptionPets or 8 to Calulate Donated or 8 to Update the Pet Data  ");
+                                Scanner inpt= new Scanner(System.in);
+                                int nmb=inpt.nextInt();
+                                if(nmb==1)
+                                    currently_Admin.AddPets();
+                                else if (nmb==2)
+                                    currently_Admin. DeleteEntity();
+                                else if (nmb==3)
+                                    currently_Admin.DisplayAvailableOperationSlots();
+                                else if (nmb==4)
+                                    currently_Admin. DisplayDonorData();
+                                else if (nmb==5)
+                                    currently_Admin.DisplayVetData();
+                                else if (nmb==6)
+                                    currently_Admin.DisplayPetData();
+                                else if (nmb==7)
+                                    currently_Admin. DisplayReadyForAdoptionPets();
+                                else if(nmb==8)
+                                    currently_Admin.  CalulateDonated();
+                                else
+                                    currently_Admin.UpdatePetData();
+
+
                                 break;
                         }
                     }
@@ -70,17 +112,14 @@ public class Main {
                 System.out.println("You are now creating an account");
                 System.out.println("To create a Vet account press 1, to create a Donor account press 2");
                 inp_1 = input.nextInt();
-                System.out.println("Enter your username");
-                String inp_2 = input.next();
-                System.out.println("Enter your password");
-                String inp_3 = input.next();
                 if (inp_1 == 1) {
+                    System.out.println("Enter your username");
+                    String inp_2 = input.next();
+                    System.out.println("Enter your password");
+                    String inp_3 = input.next();
                     Vet user = new Vet(inp_2, inp_3);
                     user.Register(user);
-                } else if (inp_1 == 2)
-                {
-                    Donor user = new Donor(inp_2, inp_3);
-                    user.Register(user); 
+                } else if (inp_1 == 2) {
                 }
             }
             else if (inp_1==3)
