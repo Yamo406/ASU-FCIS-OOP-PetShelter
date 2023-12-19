@@ -111,7 +111,7 @@ public class Admin extends User
 
   public void DisplayAvailableOperationSlots()
   {
-    for (operation room : opeartion.availableRoom) {
+    for (operation room : operation.availableRoom) {
       if (!room.isReserved()) {
           System.out.println("Room ID: " + room.getRoomId());
       }
@@ -167,11 +167,9 @@ public class Admin extends User
 
   public void CalulateDonated()
   {
-    int sumDonated = 0;
-    for (Donor donor : Donor.registeredDonor) {
-      sumDonated += donor.getDonation()
-    }
-    
+    int sumDonated = Donor.SumMoney;
+    System.out.println("The Total Donated Money = "+ sumDonated);
+
 
   }
 

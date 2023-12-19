@@ -1,5 +1,8 @@
 package User;
 
+import Pet.*;
+import Exceptions.*;
+import Rooms.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

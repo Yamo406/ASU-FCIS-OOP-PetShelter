@@ -89,6 +89,7 @@ public class Donor extends User
         return delivery;
     }
 
+    protected static int SumMoney =0;
     public void OnlineList()
     {
         int moneyAmount;
@@ -100,6 +101,7 @@ public class Donor extends User
             {
                 System.out.println("Please Enter The Amount of Money you will donate");
                 moneyAmount = online.nextInt();
+                SumMoney+=moneyAmount;
                 break;
             }
             else {
