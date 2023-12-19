@@ -87,17 +87,13 @@ public class Pet implements Comparable
     }
     @Override
     public int compareTo(Object o) {
-        Pet target= (Pet) o;
-        if(this.getID()==target.getID())
-        {
+        Pet target = (Pet) o;
+        if (this.getID() == target.getID()) {
             return 0;
-        }
-        else if (this.getID()>target.getID())
-        {
+        } else if (this.getID() > target.getID()) {
             return 1;
-        }
-        else
-        {
+        } else {
             return -1;
         }
-    }}
+    }
+}
