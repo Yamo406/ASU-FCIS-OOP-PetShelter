@@ -24,7 +24,7 @@ public class Pet implements Comparable
         TreatmentStatus = treatmentStatus;
         no_pets++;
         shelteredPets.set(ID,this);
-        if(ReadyForAdoptionStatus==Ready_for_adoption_status.Ready)
+        if(ReadyForAdoptionStatus==Ready_for_adoption_status.READY)
         {
             ReadyPets.set(ID,this);
         }
