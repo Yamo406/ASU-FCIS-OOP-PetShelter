@@ -1,4 +1,5 @@
 package User;
+
 import Exceptions.*;
 import java.util.*;
 import java.io.*;
@@ -34,7 +35,7 @@ public class Admin extends User
       pet.setAdoptionStatus(scanner.nextLine());
       System.out.println("Pet Treatment Status:");
       pet.setTreatmentStatus(scanner.nextLine());
-
+ 
     } catch (Exception e) {
     }
   }
@@ -52,6 +53,56 @@ public class Admin extends User
     if (answer == 'y' || answer == 'Y')
     {
       // delete entity
+      File inputFile = new File(filepath);
+      File tempFile = new File();
+      BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+      // display entities
+      System.out.println("What do you want to delete?");
+      System.out.println("1. Admin");
+      System.out.println("2. Donor");
+      System.out.println("3. User");
+      System.out.println("4. Vet");
+      System.out.println("5. Pet");
+      System.out.println("6. Room");
+      int deleteChoice = scanner.nextInt();
+      switch (deleteChoice) {
+        case 1:
+          // display Admin File
+          break;
+        case 2:
+          // display Donor File
+          break;
+        case 3:
+          // display User File
+          break;
+        case 4:
+          // display Vet File
+          break;
+        case 5:
+          // display Pet File
+          break;
+        case 6:
+          // display Room File
+          break;
+        default:
+          break;
+      }
+      // choose index to delete
+      System.out.println("Choose the index of the row you want to delete");
+      int deleteIndex = scanner.nextInt();
+     // after choosing the index it should begin rewriting into the new file
+      int currentInt;
+      while((currentInt = reader.read()) != 0)
+      {
+        int trimmedInt = currentInt.trim();
+        if (trimmedInt = ) {
+   
+        }
+      }
+      inputFile.delete();
+      boolean successful = tempFile.renameTo(inputFile);
     }
     else if (answer == 'N' || answer == 'n')
     {
@@ -65,7 +116,7 @@ public class Admin extends User
 
   public void DisplayDonorData(int donorIDInt)
   {
-    for (Donor indexDonor : registeredDonor) {
+    for (Donor indexDonor : Donor.registeredDonor) {
       if (indexDonor.getDonor_ID() == donorIDInt) {
           indexDonor.getDonor_ID();
           indexDonor.getName();
@@ -76,7 +127,7 @@ public class Admin extends User
 
   public void DisplayVetData(int vetIdInt)
   {
-    for (Vet indexVet : registeredVet) {
+    for (Vet indexVet : Vet.registeredVet) {
       if (indexVet.getVetId() == vetIdInt)
       {
         indexVet.getVetId();
@@ -88,7 +139,7 @@ public class Admin extends User
   
   public void DisplayPetData(int petIDint)
   {
-    for (Pet indexPet : shelteredPets) {
+    for (Pet indexPet : Pet.shelteredPets) {
       if (indexPet.getID() == petIDint) {
         indexPet.getID();
         indexPet.getName();
@@ -103,7 +154,7 @@ public class Admin extends User
 
   public void DisplayReadyForAdoptionPets()
   {
-    for(Pet item : Pet.Readypets )
+    for(Pet item : Pet.ReadyPets )
     {
        System.out.println("Pet Number " +item.getID()+ "Pet Name" + item.getName() + " Pet Type " +item.getType());
     }
@@ -113,13 +164,14 @@ public class Admin extends User
   public void CalulateDonated()
   {
     int sumDonated = 0;
+
     
 
   }
 
   public void UpdatePetData(int petIDint)
   {
-    for (Pet itemPet : shelteredPets) {
+    for (Pet itemPet : Pet.shelteredPets) {
       if (itemPet.getID() == petIDint)
       {
         itemPet.setName(scanner.nextLine());
