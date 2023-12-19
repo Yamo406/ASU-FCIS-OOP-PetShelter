@@ -25,17 +25,29 @@ public class Admin extends User
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
       Pet pet = new Pet(filePath, null, 0, null, null, null);
       System.out.println("Please inter the data of the pet.");
+      
       System.out.println("Pet Name:");
       pet.setName(scanner.nextLine());
+
       System.out.println("Pet Age:");
       pet.setAge(scanner.nextInt());
-      System.out.println("Pet Type:");
-      pet.setType(scanner.nextLine());
-      System.out.println("Pet Adoption Status:");
-      pet.setAdoptionStatus(scanner.nextLine());
-      System.out.println("Pet Treatment Status:");
-      pet.setTreatmentStatus(scanner.nextLine());
- 
+      scanner.nextLine();
+
+      System.out.println("Pet Type (Cat or Dog):");
+      String petTypeString = scanner.nextLine().toUpperCase(); 
+      Pet_type pet_type = Pet_type.valueOf(petTypeString);
+      pet.setType(pet_type);
+      
+      System.out.println("Pet Adoption Status (Adopted or Not_Adopted):");
+      String petAdoptionStatus = scanner.nextLine().toUpperCase();
+      Adoption_status adoption_status = Adoption_status.valueOf(petAdoptionStatus);
+      pet.setAdoptionStatus(adoption_status);
+
+      System.out.println("Pet Treatment Status: (Sick, recovering, or treated)");
+      String petTreatmentStatus = scanner.nextLine().toUpperCase();
+      Treatment_Status treatment_Status = Treatment_Status.valueOf(petTreatmentStatus);
+      pet.setTreatmentStatus(treatment_Status);
+
     } catch (Exception e) {
     }
   }
@@ -86,13 +98,12 @@ public class Admin extends User
         newFile.renameTo(dump);
 
       } catch (Exception e) {
-        System.out.println();
+        System.out.println("Error in deleting line");
       }
 
     }
     else if (answer == 'N' || answer == 'n')
     {
-      // return back
       System.out.println("Okay! Exiting the program");
       System.exit(1);
     }
@@ -100,6 +111,11 @@ public class Admin extends User
 
   public void DisplayAvailableOperationSlots()
   {
+    for (operation room : opeartion.availableRoom) {
+      if (!room.isReserved()) {
+          System.out.println("Room ID: " + room.getRoomId());
+      }
+    }
   }
 
   public void DisplayDonorData(int donorIDInt)
@@ -152,7 +168,9 @@ public class Admin extends User
   public void CalulateDonated()
   {
     int sumDonated = 0;
-
+    for (Donor donor : Donor.registeredDonor) {
+      sumDonated += donor.getDonation()
+    }
     
 
   }
@@ -162,12 +180,32 @@ public class Admin extends User
     for (Pet itemPet : Pet.shelteredPets) {
       if (itemPet.getID() == petIDint)
       {
+        System.out.println("Enter Pet Name:");
         itemPet.setName(scanner.nextLine());
+
+        System.out.println("Enter Pet Age:");
         itemPet.setAge(scanner.nextInt());
-        itemPet.setType(scanner.nextLine());
-        itemPet.setAdoptionStatus(scanner.nextLine());
-        itemPet.setTreatmentStatus(scanner.nextLine());
-        itemPet.setReadyForAdoptionStatus(scanner.nextLine());
+        scanner.nextLine();
+
+        System.out.println("Enter Pet Type (CAT or DOG): ");
+        String petTypeInput = scanner.nextLine();
+        Pet_type petType = Pet_type.valueOf(petTypeInput.toUpperCase());
+        itemPet.setType(petType);
+
+        System.out.println("Enter Pet Adoption Status (Adopted or Not_Adopted):");
+        String petAdoptionStatusInput = scanner.nextLine();
+        Adoption_status adoptionStatus = Adoption_status.valueOf(petAdoptionStatusInput.toUpperCase());
+        itemPet.setAdoptionStatus(adoptionStatus);
+
+        System.out.println("Enter Pet Treatment Status (Sick, recovering, or treated):");
+        String petTreatmentStatusInput = scanner.nextLine();
+        Treatment_Status treatmentStatus = Treatment_Status.valueOf(petTreatmentStatusInput.toUpperCase());
+        itemPet.setTreatmentStatus(treatmentStatus);
+
+        String petReadyforAdoptionStatusInput = scanner.nextLine();
+        Ready_for_adoption_status ready_for_adoption_status = Ready_for_adoption_status
+            .valueOf(petReadyforAdoptionStatusInput);
+        itemPet.setReadyForAdoptionStatus(ready_for_adoption_status);
       }
     }
   }
