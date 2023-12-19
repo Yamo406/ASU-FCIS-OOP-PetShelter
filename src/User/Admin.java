@@ -175,11 +175,9 @@ public class Admin extends User
 
   public void CalulateDonated()
   {
-    int sumDonated = 0;
-    for (Donor donor : Donor.registeredDonor) {
-      sumDonated += donor.getDonation()
-    }
-    
+    int sumDonated = Donor.SumMoney;
+    System.out.println("The Total Donated Money = "+ sumDonated);
+
 
   }
 
