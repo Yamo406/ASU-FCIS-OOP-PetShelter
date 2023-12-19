@@ -40,10 +40,10 @@ public class Admin extends User
     }
   }
 
-  public void DeleteEntity()
+  public void DeleteEntity(String filepath, int deleteLine)
   {
     char answer;
-    System.out.println("Delete this entitiy?");
+    System.out.println("Delete entitiy?");
     do 
     {
       System.out.println("Please enter your choice: (y/n)");
@@ -52,61 +52,49 @@ public class Admin extends User
     } while (answer != 'y' || answer != 'Y' || answer != 'N' || answer != 'n');
     if (answer == 'y' || answer == 'Y')
     {
-      // delete entity
-      File inputFile = new File(filepath);
-      File tempFile = new File();
-      BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-      BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+      String tempFile = "temp.txt";
+      File oldFile = new File(filepath);
+      File newFile = new File(tempFile);
+      int line = 0;
+      String currentLine;
+      try {
+        FileWriter fw = new FileWriter(tempFile, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
 
-      // display entities
-      System.out.println("What do you want to delete?");
-      System.out.println("1. Admin");
-      System.out.println("2. Donor");
-      System.out.println("3. User");
-      System.out.println("4. Vet");
-      System.out.println("5. Pet");
-      System.out.println("6. Room");
-      int deleteChoice = scanner.nextInt();
-      switch (deleteChoice) {
-        case 1:
-          // display Admin File
-          break;
-        case 2:
-          // display Donor File
-          break;
-        case 3:
-          // display User File
-          break;
-        case 4:
-          // display Vet File
-          break;
-        case 5:
-          // display Pet File
-          break;
-        case 6:
-          // display Room File
-          break;
-        default:
-          break;
-      }
-      // choose index to delete
-      System.out.println("Choose the index of the row you want to delete");
-      int deleteIndex = scanner.nextInt();
-     // after choosing the index it should begin rewriting into the new file
-      int currentInt;
-      while((currentInt = reader.read()) != 0)
-      {
-        int trimmedInt = currentInt.trim();
-        if (trimmedInt = ) {
-   
+        FileReader fr = new FileReader(filepath);
+        BufferedReader br = new BufferedReader(fr);
+
+        while((currentLine = br.readLine()) != null)
+        {
+          line++;
+
+          if (deleteLine != line) {
+            pw.println(currentLine);
+          }
         }
+
+        pw.flush();
+        pw.close();
+        fr.close();
+        br.close();
+        bw.close();
+        fw.close();
+
+        oldFile.delete();
+        File dump = new File(filepath);
+        newFile.renameTo(dump);
+
+      } catch (Exception e) {
+        System.out.println();
       }
-      inputFile.delete();
-      boolean successful = tempFile.renameTo(inputFile);
+
     }
     else if (answer == 'N' || answer == 'n')
     {
       // return back
+      System.out.println("Okay! Exiting the program");
+      System.exit(1);
     }
   }
 
