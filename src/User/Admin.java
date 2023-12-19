@@ -6,6 +6,8 @@ import java.io.*;
 import Pet.*;
 import Rooms.*;
 
+
+
 public class Admin extends User
 {
 
@@ -48,7 +50,13 @@ public class Admin extends User
       Treatment_Status treatment_Status = Treatment_Status.valueOf(petTreatmentStatus);
       pet.setTreatmentStatus(treatment_Status);
 
+      bufferedWriter.write(pet.toString());
+      bufferedWriter.newLine();
+
+      bufferedWriter.close();
+      fileWriter.close();
     } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -111,9 +119,9 @@ public class Admin extends User
 
   public void DisplayAvailableOperationSlots()
   {
-    for (operation room : opeartion.availableRoom) {
+    for (operation room : operation.availableRoom) {
       if (!room.isReserved()) {
-          System.out.println("Room ID: " + room.getRoomId());
+        System.out.println("Room ID: " + room.getRoomId());
       }
     }
   }
