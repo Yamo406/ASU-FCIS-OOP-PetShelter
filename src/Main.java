@@ -137,7 +137,13 @@ public class Main {
                     System.out.println("Enter your password");
                     String inp_3 = input.next();
                     Vet user = new Vet(inp_2, inp_3);
-                    user.Register(user);
+                    try {
+                        user.Register(user);
+                    } catch (RegisterException e) {
+                    System.out.println("This account may not exist, you should register an account.");
+                } catch (Exception e) {
+                    System.out.println("it appears that there is an error" + e.getMessage());
+                }
                 }
                 else if (inp_1 == 2)
                 {
@@ -146,8 +152,13 @@ public class Main {
                     System.out.println("Enter your password");
                     String inp_3 = input.next();
                     Donor user = new Donor(inp_2, inp_3);
-                    user.Register(user);
-                }
+                    try {
+                        user.Register(user);
+                    } catch (RegisterException e) {
+                        System.out.println("This account may not exist, you should register an account.");
+                    } catch (Exception e) {
+                        System.out.println("it appears that there is an error" + e.getMessage());
+                    }                }
             }
             else if (inp_1==3)
             {
