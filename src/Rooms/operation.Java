@@ -1,11 +1,9 @@
-package Rooms;
-
 import java.util.ArrayList;
 
 public class operation implements ShelterRoom{
     private int roomId;
     private static int no_Operation_Rooms=0;
-    private ArrayList<Boolean> reservedSlots=new ArrayList<>(10);
+    public ArrayList<Boolean> reservedSlots=new ArrayList<>(10);
     private boolean isReserved = false;
     public static ArrayList<operation> availableRoom = new ArrayList<>(3);
     public operation (){
@@ -21,36 +19,36 @@ public class operation implements ShelterRoom{
         return roomId;
     }
     public boolean isReserved() {
-        boolean found=false;
+        boolean found=true;
+        int i=0;
         for(boolean item: reservedSlots )
         {
-            int i=0;
             if(!item)
             {
-                System.out.println("Slot index: "+i+"is available");
-                found=true;
+                System.out.println("Slot number: "+(i+1)+"is available");
+                found=false;
             }
             i++;
         }
         return found;
     }
-    public void displayAvailableRooms() {
-        for (operation room : availableRoom )
-        {
-            if (isReserved)
+        public void displayAvailableRooms() {
+            for (operation room : availableRoom )
             {
-                System.out.println(" the room : id "+getRoomId()+"is already reserved");
-            }
-            else
-            {
-                System.out.println("Available operation room id :"+ getRoomId());
-                isReserved();
-            }
+                if (isReserved)
+                {
+                    System.out.println(" the room : id "+getRoomId()+"is already reserved");
+                }
+                else
+                {
+                    System.out.println("Available operation room id :"+ getRoomId());
+                    isReserved();
+                }
 
         }
     }
     public void reserveSlot(int index)
     {
-        reservedSlots.set(index,true);
+        this.reservedSlots.set(index,true);
     }
 }
