@@ -1,15 +1,14 @@
-package User;
-
-import javax.sound.midi.Soundbank;
-import Exceptions.*;
-import Pet.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+//package User;
+//
+//import javax.sound.midi.Soundbank;
+//import Exceptions.*;
+//import Pet.*;
+//import java.io.BufferedWriter;
+//import java.io.FileWriter;
+//import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-enum donation_Type { MONEY, FOOD, MEDICINE}
-enum delivery_Type {ONLINE, ONSITE }
+
 public class Donor extends User
 {
     private int donor_ID;
@@ -17,6 +16,7 @@ public class Donor extends User
     private donation_Type donation;
     private delivery_Type delivery;
     private static int no_donors=0;
+    protected static int SumMoney =0;
     protected static ArrayList<Donor> registeredDonor= new ArrayList<>();
 
     private String [] appointment= new String[]{" 1_ Saturday >>> From 10am To 4pm ",
@@ -33,11 +33,13 @@ public class Donor extends User
         this.donor_ID=no_donors;
         no_donors++;
     }
-    public Donor(String name, String password, int card_Number)
+    public Donor(String name, String password, int card_Number,donation_Type donationType,delivery_Type delivery)
     {
         super(name, password);
         this.donor_ID=no_donors;
         this.card_Number= card_Number;
+        this.donation=donationType;
+        this.delivery=delivery;
         no_donors++;
     }
 
@@ -45,14 +47,11 @@ public class Donor extends User
     public void Register(User user) throws RegisterException
     {
         Donor d = (Donor) user;
-        registeredUser.add(d.getUser_index(),d);
-        registeredDonor.add(d.getDonor_ID(),d);
+
         for(User item:registeredDonor)
         {
-            if ((d.compareTo(item)==0)&&(d.getUser_index()!=registeredUser.indexOf(item)))
+            if ((d.compareTo(item)==0))
             {
-                registeredDonor.remove(d.getDonor_ID());
-                registeredUser.remove(d.getUser_index());
                 throw new RegisterException();
             }
         }
@@ -60,6 +59,8 @@ public class Donor extends User
         Scanner inf= new Scanner(System.in);
         int CardInfo = inf.nextInt();
         d.setCard_Number(CardInfo);
+        registeredUser.add(d);
+        registeredDonor.add(d);
     }
     public int getDonor_ID() {
         return donor_ID;
@@ -88,8 +89,6 @@ public class Donor extends User
     public delivery_Type getDelivery() {
         return delivery;
     }
-
-    protected static int SumMoney =0;
     public void OnlineList()
     {
         int moneyAmount;
@@ -108,7 +107,7 @@ public class Donor extends User
                 System.out.println("Invalid Card Number...... Please Try Again");
             }
         }
-        
+
 
     }
 
@@ -119,8 +118,6 @@ public class Donor extends User
             appoint.MakeAppoint(appoint);
             boolean Done = appoint.checkAvailability(appoint);
             if(!Done)
-                continue;
-            else
                 break;
 
         }
@@ -128,6 +125,7 @@ public class Donor extends User
     }
     public void MakeDonation (donation_Type donationType)
     {
+        this.setDonation(donationType);
         int Answer;
         switch(donationType){
             case MONEY :
@@ -141,11 +139,13 @@ public class Donor extends User
                     if (Answer == 1)
                     {
                         OnlineList();
+                        this.setDelivery(delivery_Type.ONLINE);
                         break;
                     }
                     else if (Answer == 2)
                     {
                         OnsiteList();
+                        this.setDelivery(delivery_Type.ONSITE);
                         break;
                     }
                     else
@@ -157,11 +157,9 @@ public class Donor extends User
             case FOOD:
             case MEDICINE:
                 OnsiteList();
+                this.setDelivery(delivery_Type.ONSITE);
                 break;
-
-
         }
-
     }
     public void AskForAdoption(){
 
@@ -197,5 +195,23 @@ public class Donor extends User
         }
     }
 
-}
+    public void setDonor_ID(int donor_ID) {
+        this.donor_ID = donor_ID;
+    }
 
+    public static void setNo_donors(int no_donors) {
+        Donor.no_donors = no_donors;
+    }
+
+    public static void setSumMoney(int sumMoney) {
+        SumMoney = sumMoney;
+    }
+
+    public static int getNo_donors() {
+        return no_donors;
+    }
+
+    public static int getSumMoney() {
+        return SumMoney;
+    }
+}
