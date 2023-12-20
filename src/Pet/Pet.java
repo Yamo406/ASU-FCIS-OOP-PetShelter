@@ -1,5 +1,3 @@
-package Pet;
-
 import java.util.ArrayList;
 
 public class Pet implements Comparable
@@ -85,15 +83,28 @@ public class Pet implements Comparable
     public void setTreatmentStatus(Treatment_Status treatmentStatus) {
         TreatmentStatus = treatmentStatus;
     }
+    public static void setNo_pets(int no_pets) {
+        Pet.no_pets = no_pets;
+    }
+
     @Override
     public int compareTo(Object o) {
-        Pet target = (Pet) o;
-        if (this.getID() == target.getID()) {
+        Pet target= (Pet) o;
+        if(this.getID()==target.getID())
+        {
             return 0;
-        } else if (this.getID() > target.getID()) {
+        }
+        else if (this.getID()>target.getID())
+        {
             return 1;
-        } else {
+        }
+        else
+        {
             return -1;
         }
+    }
+
+    public static int getNo_pets() {
+        return no_pets;
     }
 }
