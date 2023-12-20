@@ -1,10 +1,8 @@
+package User;
 
-
-
-import javax.sound.midi.Soundbank;
 import Exceptions.*;
 import Pet.*;
-
+import javax.sound.midi.Soundbank;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

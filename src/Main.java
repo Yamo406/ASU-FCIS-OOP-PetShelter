@@ -1,5 +1,5 @@
-import Rooms.*;
-import Users.*;
+import Room.*;
+import User.*;
 import Pet.*;
 import Exceptions.*;
 import java.io.*;

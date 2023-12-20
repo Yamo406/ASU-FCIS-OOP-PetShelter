@@ -1,3 +1,5 @@
+package Room;
+
 public class Examination {
     private int roomId;
     private static int no_Examination_Rooms=0;
