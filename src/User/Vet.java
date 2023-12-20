@@ -1,16 +1,6 @@
-package User;
-
-import Pet.*;
-import Exceptions.*;
-import Rooms.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Pet.*;
-import Exceptions.*;
 enum medicine
 {
     FIRST_DOSE,FINAL_DOSE
@@ -18,9 +8,9 @@ enum medicine
 public class Vet extends User {
     private int yrs_exp;
     private int vetId;
-    private ArrayList<Pet> pets= new ArrayList<>(10);
+    public ArrayList<Pet> pets= new ArrayList<>(20);
     private static int no_Vets=0;
-    protected static ArrayList<Vet> registeredVet= new ArrayList<>(10);
+    public static ArrayList<Vet> registeredVet= new ArrayList<>();
 
     public int getYrs_exp() {
         return yrs_exp;
@@ -33,6 +23,14 @@ public class Vet extends User {
     {
         super();
     }
+    public Vet(String username,String password,int yrs_exp)
+    {
+        super(username, password);
+        this.vetId = no_Vets;
+        no_Vets++;
+        this.yrs_exp= yrs_exp;
+    }
+
     public Vet(String username, String password)
     {
         super(username, password);
@@ -122,20 +120,38 @@ public class Vet extends User {
             }
         }
     }
-
     @Override
-    public void Register(User user) throws RegisterException, IOException {
+    public void Register(User user) throws RegisterException {
         Vet v = (Vet) user;
-        registeredUser.add(v.getUser_index(),v);
-        registeredVet.add(v.getVetId(),v);
+
         for(User item:registeredVet)
         {
-            if ((v.compareTo(item)==0)&&(v.getUser_index()!=registeredUser.indexOf(item)))
+            if ((v.compareTo(item)==0))
             {
-                registeredVet.remove(v.getVetId());
-                registeredUser.remove(v.getUser_index());
                 throw new RegisterException();
             }
         }
+        registeredUser.add(v);
+        registeredVet.add(v);
+    }
+
+    public void setYrs_exp(int yrs_exp) {
+        this.yrs_exp = yrs_exp;
+    }
+
+    public void setVetId(int vetId) {
+        this.vetId = vetId;
+    }
+
+    public static void setNo_Vets(int no_Vets) {
+        Vet.no_Vets = no_Vets;
+    }
+
+    public ArrayList<Pet> getPets() {
+        return pets;
+    }
+
+    public static int getNo_Vets() {
+        return no_Vets;
     }
 }
