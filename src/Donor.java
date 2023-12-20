@@ -1,11 +1,13 @@
-//package User;
-//
-//import javax.sound.midi.Soundbank;
-//import Exceptions.*;
-//import Pet.*;
-//import java.io.BufferedWriter;
-//import java.io.FileWriter;
-//import java.io.IOException;
+
+
+
+import javax.sound.midi.Soundbank;
+import Exceptions.*;
+import Pet.*;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,7 +19,7 @@ public class Donor extends User
     private delivery_Type delivery;
     private static int no_donors=0;
     protected static int SumMoney =0;
-    protected static ArrayList<Donor> registeredDonor= new ArrayList<>();
+    public static ArrayList<Donor> registeredDonor= new ArrayList<>();
 
     private String [] appointment= new String[]{" 1_ Saturday >>> From 10am To 4pm ",
             "2_ Sunday >>> From 11am To 4pm ","3_ Monday >>> From 10am To 5pm", "4_ Tuesday >>> From 12am To 3pm",

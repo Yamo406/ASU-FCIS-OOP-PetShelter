@@ -1,3 +1,7 @@
+import Rooms.*;
+import Users.*;
+import Pet.*;
+import Exceptions.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -33,14 +37,14 @@ public class Main {
                         {
                             case 1:
                                 int targetV=0;
-                                for(Vet item: Vet.registeredVet)
+                                for(Vet item: registeredVet)
                                 {
                                     if((Name.compareTo(item.getName())==0)&&Password.compareTo(item.getPassword())==0)
                                     {
                                         targetV=item.getVetId();
                                     }
                                 }
-                                Vet currently_Vet=Vet.registeredVet.get(targetV);
+                                Vet currently_Vet=registeredVet.get(targetV);
                                 System.out.println("press 1 to give prescription of a pet or 2 to reserve operation or 3 to add pet ");
                                 Scanner in= new Scanner(System.in);
                                 int num=in.nextInt();
@@ -181,7 +185,7 @@ public class Main {
                 nameV = lineV;
             } else {
                 passwordV = lineV;
-                Vet.registeredVet.add(new Vet(nameV, passwordV,yrs));
+                registeredVet.add(new Vet(nameV, passwordV,yrs));
                 yrs = 0;
                 nameV = null;
             }
@@ -307,7 +311,7 @@ public class Main {
         READ.close();
         User.registeredUser.add(new Admin());
         User.registeredUser.addAll(Donor.registeredDonor);
-        User.registeredUser.addAll(Vet.registeredVet);
+        User.registeredUser.addAll(registeredVet);
     }
     public static void writeOnExit(File pathUser, File pathVet, File pathDonor, File pathPet,File pathOperation) throws IOException {
         BufferedWriter WRITE = new BufferedWriter(new FileWriter(pathUser));
@@ -319,7 +323,7 @@ public class Main {
         WRITE.flush();
         WRITE.close();
         WRITE = new BufferedWriter(new FileWriter(pathVet));
-        for(Vet item:Vet.registeredVet)
+        for(Vet item:registeredVet)
         {
             WRITE.write((item.getYrs_exp())+"\n");
             WRITE.write(item.getName()+"\n");
