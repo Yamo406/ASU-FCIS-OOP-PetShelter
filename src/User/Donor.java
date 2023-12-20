@@ -21,7 +21,7 @@ public class Donor extends User
 
     private String [] appointment= new String[]{" 1_ Saturday >>> From 10am To 4pm ",
             "2_ Sunday >>> From 11am To 4pm ","3_ Monday >>> From 10am To 5pm", "4_ Tuesday >>> From 12am To 3pm",
-            "5_ Friday >>> All the day from 9am to 11 pm" }; //in these appointments we can welcome you and let you
+            "5_ Friday >>> All the day from 9am to 11 pm" }; //in these appointments we can welcome you and let you adopt a pet
     public Donor(String name, String password)
     {
         super(name, password);
@@ -190,20 +190,8 @@ public class Donor extends User
         }
     }
 
-    public void setDonor_ID(int donor_ID) {
-        this.donor_ID = donor_ID;
-    }
-
-    public static void setNo_donors(int no_donors) {
-        Donor.no_donors = no_donors;
-    }
-
     public static void setSumMoney(int sumMoney) {
         SumMoney = sumMoney;
-    }
-
-    public static int getNo_donors() {
-        return no_donors;
     }
 
     public static int getSumMoney() {

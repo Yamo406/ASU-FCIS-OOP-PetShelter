@@ -119,6 +119,7 @@ public class Vet extends User {
                 if(TS == Treatment_Status.TREATED)
                 {
                     p.setReadyForAdoptionStatus(Ready_for_adoption_status.READY);
+                    Pet.ReadyPets.add(p);
 
                 }
 
