@@ -1,4 +1,4 @@
-package Rooms;
+package Room;
 
 public interface ShelterRoom {
      void displayAvailableRooms();

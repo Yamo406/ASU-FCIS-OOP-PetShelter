@@ -1,5 +1,8 @@
 package User;
 
+import Room.*;
+import Exceptions.*;
+import Pet.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -116,6 +119,7 @@ public class Vet extends User {
                 if(TS == Treatment_Status.TREATED)
                 {
                     p.setReadyForAdoptionStatus(Ready_for_adoption_status.READY);
+                    Pet.ReadyPets.add(p);
 
                 }
 

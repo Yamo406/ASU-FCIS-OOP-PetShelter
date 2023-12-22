@@ -8,7 +8,7 @@ public class AppointmentForDonor  {
     private int endtTime;
     private String Day;
 
-    private ArrayList<AppointmentForDonor> Scheduler = new ArrayList<>(10);
+    private ArrayList<AppointmentForDonor> Scheduler = new ArrayList<>();
 
     public void setStartTime(int startTime) {
         this.startTime = startTime;
@@ -47,7 +47,6 @@ public class AppointmentForDonor  {
         String Day = input.next();
         app.setDay(Day);
 
-        Scheduler.add(app);
     }
 
     public boolean checkAvailability(AppointmentForDonor app)
@@ -58,6 +57,7 @@ public class AppointmentForDonor  {
             return false;
         }
         else{
+            Scheduler.add(app);
             System.out.println(" Thank You For Your Help.....We are waiting you ^_^ ");
             return true;
         }

@@ -1,3 +1,7 @@
+import Room.*;
+import User.*;
+import Pet.*;
+import Exceptions.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
